@@ -67,8 +67,19 @@ public:
             }
         }
     }
+    
+    ComplexNumber& operator=(const pair<double, double>& complexPair) {
+        real_part = complexPair.first;
+        imaginary_part = complexPair.second;
+        return *this;
+    }
 
-    void display() {
+    ComplexNumber& operator=(const string& complexString) {
+        *this = ComplexNumber(complexString);
+        return *this;
+    }
+
+    void display() const {
         if (imaginary_part >= 0)
             cout << real_part << " + " << imaginary_part << "i" << endl;
         else
@@ -77,29 +88,23 @@ public:
 };
 
 int main() {
-    ComplexNumber myObj1;
-    ComplexNumber myObj2(5.0);
-    ComplexNumber myObj3(3.0, 4.0);
+    ComplexNumber nr1;
+    ComplexNumber nr2(5.0, 4.0);
 
-    pair<double, double> complexPair(5.0, -7.0);
-    ComplexNumber myObj4(complexPair);
+    cout << "Before nr2: "; nr1.display();
+    cout << "Before nr2: "; nr2.display();
 
-    cout << "myObj1: "; myObj1.display();
-    cout << "myObj2: "; myObj2.display();
-    cout << "myObj3: "; myObj3.display();
-    cout << "myObj4:"; myObj4.display();
+    nr1 = make_pair(3.0, 7.0);
+    cout << "After nr1: "; nr1.display();
 
-    ComplexNumber c1("34 32 +    41 1i");
-    ComplexNumber c2("4i + 5");
-    ComplexNumber c3("5");
-    ComplexNumber c4("6i");
-    ComplexNumber c5("7 - 8i");
+    nr2 = "6 + 8i";
+    cout << "After nr2: "; nr2.display();
 
-    cout << "\nc1:"; c1.display();
-    cout << "c2:"; c2.display();
-    cout << "c3:"; c3.display();
-    cout << "c4:"; c4.display();
-    cout << "c5:"; c5.display();
+    nr1 = make_pair(9.0, -5.0);
+    cout << "After nr1: "; nr1.display();
+
+    nr2 = "-4i + 10";
+    cout << "After nr2: "; nr2.display();
 
     return 0;
 }
