@@ -82,6 +82,18 @@ public:
         return ss.str();
     }
 
+    friend ostream& operator<<(ostream& os, const ComplexNumber& number) {
+        if (number.real_part == 0 && number.imaginary_part == 0)
+            os << "0";
+        else if (number.real_part == 0 && number.imaginary_part != 0)
+            os << number.imaginary_part << "i";
+        else if (number.imaginary_part > 0)
+            os << number.real_part << " + " << number.imaginary_part << "i";
+        else if (number.imaginary_part < 0)
+            os << number.real_part << " - " << -number.imaginary_part << "i";
+        return os;
+    }
+
     void display() const {
         cout << to_string() << endl;
     }
@@ -91,7 +103,7 @@ int main() {
     ComplexNumber nr1;
     nr1 = "5-10i";
 
-    cout << "Before : 5-10i"<< endl;
-    cout << "After to_string: " << nr1.to_string() << endl;
+    cout << "Before : 5-10i" << endl;
+    cout << "After : " << nr1 << endl;
     return 0;
 }
