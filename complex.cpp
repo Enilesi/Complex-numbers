@@ -79,19 +79,14 @@ public:
             ss << real_part << " + " << imaginary_part << "i";
         else if (imaginary_part < 0 && real_part != 0)
             ss << real_part << " - " << -imaginary_part << "i";
+        else 
+            ss << real_part;
         return ss.str();
     }
 
     friend ostream& operator<<(ostream& os, const ComplexNumber& number) {
-        if (number.real_part == 0 && number.imaginary_part == 0)
-            os << "0";
-        else if (number.real_part == 0 && number.imaginary_part != 0)
-            os << number.imaginary_part << "i";
-        else if (number.imaginary_part > 0)
-            os << number.real_part << " + " << number.imaginary_part << "i";
-        else if (number.imaginary_part < 0)
-            os << number.real_part << " - " << -number.imaginary_part << "i";
-        return os;
+            os << number.to_string();
+            return os;
     }
 
     ComplexNumber operator-(const ComplexNumber& number)
@@ -120,7 +115,6 @@ public:
         ComplexNumber result;
         result.real_part = (real_part * number.real_part) - (imaginary_part * number.imaginary_part);
         result.imaginary_part = (real_part * number.imaginary_part) + (imaginary_part * number.real_part);
-        
         return result;
     }
 
@@ -148,13 +142,11 @@ public:
 
 int main() {
     ComplexNumber nr1, nr2;
-    nr1 = "5-10i";
-    nr2 = "3+2i";
-    double nr3=5.0;
+    nr1 = "3i";
+    nr2 = "3i";
 
-    cout << "Before : 5-10i, 3+2i ,5" << endl;
-    cout << "After : " << nr1<<",  "<< nr2 <<",  " << endl;
-    cout <<"("<<nr1<< ") / ("<<nr3<<") = "<<nr1/nr3<<endl;
-    cout <<"("<<nr1<< ") / ("<<nr2<<") = "<<nr1/nr2<<endl;
+
+    cout <<"("<<nr1<< ") + ("<<nr2<<") = "<<nr1+nr2<<endl;
+    cout <<"("<<nr1<< ") * ("<<nr2<<") = "<<nr1*nr2<<endl;
     return 0;
 }
