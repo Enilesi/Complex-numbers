@@ -1,9 +1,7 @@
 #include <iostream>
-#include <utility>
 #include <sstream>
 #include <string>
 #include <algorithm>
-#include <ctype.h>
 using namespace std;
 
 class ComplexNumber {
@@ -27,47 +25,39 @@ public:
         imaginary_part = 0;
 
         complexString.erase(remove(complexString.begin(), complexString.end(), ' '), complexString.end());
-        if (!complexString.empty() && complexString[0] == '+') {
-            complexString.erase(0, 1);
-        }
+        if (!complexString.empty() && complexString[0] == '+') complexString.erase(0, 1);
 
         if (complexString.find_first_of("1234567890") != complexString.npos) {
-            int minus_pos = 40, plus_pos = 40, i_pos = 40;
+            int minus1_pos = 40, minus2_pos = 40, plus_pos = 40, i_pos = 40;
 
-            size_t len = complexString.length();
-
-            if (complexString.find('+') != complexString.npos) plus_pos = complexString.find('+');
-            if (complexString.find('-') != complexString.npos) minus_pos = complexString.find('-');
             if (complexString.find('i') != complexString.npos) i_pos = complexString.find('i');
+            if (complexString.find('+') != complexString.npos) plus_pos = complexString.find('+');
+            if (complexString.find('-') != complexString.npos) {
+                minus1_pos = complexString.find_first_of('-');
+                minus2_pos = complexString.find_last_of('-');
+            }
 
-            if (plus_pos == 40 && minus_pos == 40) {
-                if (i_pos == 40) {
-                    real_part = stod(complexString);
-                } else {
-                    imaginary_part = stod(complexString.erase(len - 1, len));
+            auto const ignore_zero = [](auto const& a, auto const& b) -> bool {
+                if (0 == a) {
+                    return false;
+                } else if (0 == b) {
+                    return true;
                 }
-            } else {  
-                if (i_pos == len - 1) {
-                    if (minus_pos != 40) {
-                        real_part = stod(complexString.substr(0, minus_pos)); 
-                        imaginary_part = stod(complexString.substr(minus_pos + 1));
-                    } else if (plus_pos != 40) {
-                        real_part = stod(complexString.substr(0, plus_pos));
-                        imaginary_part = stod(complexString.substr(plus_pos + 1));
-                    }
-                } else {
-                    imaginary_part = stod(complexString.substr(0, i_pos));
-                    real_part = stod(complexString.substr(i_pos + 2));
-                }
-                if (minus_pos < i_pos && plus_pos > i_pos) {
-                    imaginary_part = -imaginary_part;
-                } else if (minus_pos != 40) {
-                    real_part = -real_part;
-                }
+                return a < b;
+            };
+            double min_sign = min({minus1_pos, minus2_pos, plus_pos}, ignore_zero);
+            if (i_pos < min_sign) {
+                imaginary_part = stod(complexString.substr(0, i_pos));
+                if (i_pos + 1 != complexString.length())
+                    real_part = stod(complexString.substr(min_sign));
+            } else {
+                real_part = stod(complexString.substr(0, min_sign));
+                if (i_pos != 40)
+                    imaginary_part = stod(complexString.substr(min_sign));
             }
         }
     }
-    
+
     ComplexNumber& operator=(const pair<double, double>& complexPair) {
         real_part = complexPair.first;
         imaginary_part = complexPair.second;
@@ -79,32 +69,29 @@ public:
         return *this;
     }
 
+    string to_string() const {
+        stringstream ss;
+        if (real_part == 0 && imaginary_part == 0)
+            ss << "0";
+        else if (real_part == 0 && imaginary_part != 0) {
+            ss << imaginary_part << "i";
+        } else if (imaginary_part > 0 && real_part != 0)
+            ss << real_part << " + " << imaginary_part << "i";
+        else if (imaginary_part < 0 && real_part != 0)
+            ss << real_part << " - " << -imaginary_part << "i";
+        return ss.str();
+    }
+
     void display() const {
-        if (imaginary_part >= 0)
-            cout << real_part << " + " << imaginary_part << "i" << endl;
-        else
-            cout << real_part << " - " << -imaginary_part << "i" << endl;
+        cout << to_string() << endl;
     }
 };
 
 int main() {
     ComplexNumber nr1;
-    ComplexNumber nr2(5.0, 4.0);
+    nr1 = "5-10i";
 
-    cout << "Before nr2: "; nr1.display();
-    cout << "Before nr2: "; nr2.display();
-
-    nr1 = make_pair(3.0, 7.0);
-    cout << "After nr1: "; nr1.display();
-
-    nr2 = "6 + 8i";
-    cout << "After nr2: "; nr2.display();
-
-    nr1 = make_pair(9.0, -5.0);
-    cout << "After nr1: "; nr1.display();
-
-    nr2 = "-4i + 10";
-    cout << "After nr2: "; nr2.display();
-
+    cout << "Before : 5-10i"<< endl;
+    cout << "After to_string: " << nr1.to_string() << endl;
     return 0;
 }
