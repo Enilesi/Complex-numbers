@@ -101,6 +101,20 @@ public:
         result.imaginary_part = imaginary_part - number.imaginary_part;
         return result;
     }
+    ComplexNumber operator+(const ComplexNumber& number)
+    {
+        ComplexNumber result;
+        result.real_part = real_part + number.real_part;
+        result.imaginary_part = imaginary_part + number.imaginary_part;
+        return result;
+    }
+    ComplexNumber operator+(const string& number)
+    {
+        ComplexNumber result;
+        result.real_part = real_part + ComplexNumber(number).real_part;
+        result.imaginary_part = imaginary_part +  ComplexNumber(number).imaginary_part;
+        return result;
+    }
 
     void display() const {
         cout << to_string() << endl;
@@ -114,9 +128,12 @@ int main() {
     ComplexNumber nr1, nr2;
     nr1 = "5-10i";
     nr2 = "3+2i";
+    double nr3=5.0;
 
-    cout << "Before : 5-10i, 3+2i" << endl;
-    cout << "After : " << nr1<<",  "<<nr2 << endl;
-    cout <<"("<<nr1<< ") - ("<<nr2<<") = "<<nr1-nr2<<endl;
+    cout << "Before : 5-10i, 3+2i ,5" << endl;
+    cout << "After : " << nr1<<",  "<< nr2 <<",  " << endl;
+    cout <<"("<<nr1<< ") + ("<<nr3<<") = "<<nr1+nr3<<endl;
+    cout <<"("<<nr1<< ") + ("<<nr2<<") = "<<nr1+nr2<<endl;
+    cout <<"("<<nr1<< ") + (3i) = "<<nr1+"3i"<<endl;
     return 0;
 }
