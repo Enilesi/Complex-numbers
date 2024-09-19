@@ -94,16 +94,29 @@ public:
         return os;
     }
 
+    ComplexNumber operator-(const ComplexNumber& number)
+    {
+        ComplexNumber result;
+        result.real_part = real_part - number.real_part;
+        result.imaginary_part = imaginary_part - number.imaginary_part;
+        return result;
+    }
+
     void display() const {
         cout << to_string() << endl;
     }
+
+
+
 };
 
 int main() {
-    ComplexNumber nr1;
+    ComplexNumber nr1, nr2;
     nr1 = "5-10i";
+    nr2 = "3+2i";
 
-    cout << "Before : 5-10i" << endl;
-    cout << "After : " << nr1 << endl;
+    cout << "Before : 5-10i, 3+2i" << endl;
+    cout << "After : " << nr1<<",  "<<nr2 << endl;
+    cout <<"("<<nr1<< ") - ("<<nr2<<") = "<<nr1-nr2<<endl;
     return 0;
 }
