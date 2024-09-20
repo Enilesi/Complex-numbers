@@ -1,3 +1,0 @@
-ProgTests 0 0
----
-ProgTests

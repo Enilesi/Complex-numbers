@@ -1,3 +1,0 @@
-C:\mingw64\bin\cmake.exe -E rm -f CMakeFiles\ProgTests.dir/objects.a
-C:\mingw64\bin\ar.exe qc CMakeFiles\ProgTests.dir/objects.a @CMakeFiles\ProgTests.dir\objects1.rsp
-C:\mingw64\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\ProgTests.dir/objects.a -Wl,--no-whole-archive -o ProgTests.exe -Wl,--out-implib,libProgTests.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\ProgTests.dir\linkLibs.rsp
