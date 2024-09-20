@@ -1,2 +1,2 @@
-ProgTests 3 0.0144393
+ProgTests 4 0.0125118
 ---

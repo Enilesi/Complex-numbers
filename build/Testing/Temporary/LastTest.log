@@ -1,10 +1,10 @@
-Start testing: Sep 20 06:41 GTB Daylight Time
+Start testing: Sep 20 06:46 GTB Daylight Time
 ----------------------------------------------------------
 1/1 Testing: ProgTests
 1/1 Test: ProgTests
 Command: "C:/Users/Lenovo/Documents/Complex numbers/build/test/ProgTests.exe"
 Directory: C:/Users/Lenovo/Documents/Complex numbers/build/test
-"ProgTests" start time: Sep 20 06:41 GTB Daylight Time
+"ProgTests" start time: Sep 20 06:46 GTB Daylight Time
 Output:
 ----------------------------------------------------------
 [==========] Running 10 tests from 1 test suite.
@@ -36,11 +36,11 @@ Output:
 [==========] 10 tests from 1 test suite ran. (0 ms total)
 [  PASSED  ] 10 tests.
 <end of output>
-Test time =   0.04 sec
+Test time =   0.05 sec
 ----------------------------------------------------------
 Test Passed.
-"ProgTests" end time: Sep 20 06:41 GTB Daylight Time
+"ProgTests" end time: Sep 20 06:46 GTB Daylight Time
 "ProgTests" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Sep 20 06:41 GTB Daylight Time
+End testing: Sep 20 06:46 GTB Daylight Time
