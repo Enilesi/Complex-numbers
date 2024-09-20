@@ -1,0 +1,2 @@
+C:\mingw64\bin\ar.exe qc libProg.a CMakeFiles/Prog.dir/complex.cpp.obj
+C:\mingw64\bin\ranlib.exe libProg.a

@@ -15,26 +15,27 @@ public:
         imaginary_part = i;
     }
 
-    ComplexNumber(pair<double, double> complexPair) {
-        real_part = complexPair.first;
-        imaginary_part = complexPair.second;
+
+    ComplexNumber(pair<double, double> complex_pair) {
+        real_part = complex_pair.first;
+        imaginary_part = complex_pair.second;
     }
 
-    ComplexNumber(string complexString) {
+    ComplexNumber(string complex_string) {
         real_part = 0;
         imaginary_part = 0;
 
-        complexString.erase(remove(complexString.begin(), complexString.end(), ' '), complexString.end());
-        if (!complexString.empty() && complexString[0] == '+') complexString.erase(0, 1);
+        complex_string.erase(remove(complex_string.begin(), complex_string.end(), ' '), complex_string.end());
+        if (!complex_string.empty() && complex_string[0] == '+') complex_string.erase(0, 1);
 
-        if (complexString.find_first_of("1234567890") != complexString.npos) {
+        if (complex_string.find_first_of("1234567890") != complex_string.npos) {
             int minus1_pos = 40, minus2_pos = 40, plus_pos = 40, i_pos = 40;
 
-            if (complexString.find('i') != complexString.npos) i_pos = complexString.find('i');
-            if (complexString.find('+') != complexString.npos) plus_pos = complexString.find('+');
-            if (complexString.find('-') != complexString.npos) {
-                minus1_pos = complexString.find_first_of('-');
-                minus2_pos = complexString.find_last_of('-');
+            if (complex_string.find('i') != complex_string.npos) i_pos = complex_string.find('i');
+            if (complex_string.find('+') != complex_string.npos) plus_pos = complex_string.find('+');
+            if (complex_string.find('-') != complex_string.npos) {
+                minus1_pos = complex_string.find_first_of('-');
+                minus2_pos = complex_string.find_last_of('-');
             }
 
             auto const ignore_zero = [](auto const& a, auto const& b) -> bool {
@@ -47,25 +48,25 @@ public:
             };
             double min_sign = min({minus1_pos, minus2_pos, plus_pos}, ignore_zero);
             if (i_pos < min_sign) {
-                imaginary_part = stod(complexString.substr(0, i_pos));
-                if (i_pos + 1 != complexString.length())
-                    real_part = stod(complexString.substr(min_sign));
+                imaginary_part = stod(complex_string.substr(0, i_pos));
+                if (i_pos + 1 != complex_string.length())
+                    real_part = stod(complex_string.substr(min_sign));
             } else {
-                real_part = stod(complexString.substr(0, min_sign));
+                real_part = stod(complex_string.substr(0, min_sign));
                 if (i_pos != 40)
-                    imaginary_part = stod(complexString.substr(min_sign));
+                    imaginary_part = stod(complex_string.substr(min_sign));
             }
         }
     }
 
-    ComplexNumber& operator=(const pair<double, double>& complexPair) {
-        real_part = complexPair.first;
-        imaginary_part = complexPair.second;
+    ComplexNumber& operator=(const pair<double, double>& complex_pair) {
+        real_part = complex_pair.first;
+        imaginary_part = complex_pair.second;
         return *this;
     }
 
-    ComplexNumber& operator=(const string& complexString) {
-        *this = ComplexNumber(complexString);
+    ComplexNumber& operator=(const string& complex_string) {
+        *this = ComplexNumber(complex_string);
         return *this;
     }
 
@@ -123,7 +124,7 @@ public:
         ComplexNumber result;
         double module=number.real_part*number.real_part+number.imaginary_part*number.imaginary_part;
         result.real_part=real_part*number.real_part+imaginary_part*number.imaginary_part;
-        result.imaginary_part=imaginary_part*number.real_part+real_part*number.imaginary_part;
+        result.imaginary_part = imaginary_part * number.real_part - real_part * number.imaginary_part;
 
         result.real_part/=module;
         result.imaginary_part/=module;
@@ -136,17 +137,6 @@ public:
         cout << to_string() << endl;
     }
 
-
-
 };
 
-int main() {
-    ComplexNumber nr1, nr2;
-    nr1 = "3i";
-    nr2 = "3i";
 
-
-    cout <<"("<<nr1<< ") + ("<<nr2<<") = "<<nr1+nr2<<endl;
-    cout <<"("<<nr1<< ") * ("<<nr2<<") = "<<nr1*nr2<<endl;
-    return 0;
-}
