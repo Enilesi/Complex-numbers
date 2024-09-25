@@ -61,6 +61,20 @@ TEST(ComplexNumberTests, AssignmentOperatorPair) {
     EXPECT_EQ(c.to_string(), "4 + 3i");
 }
 
+TEST(ComplexNumberTests, AdditionWithDouble) {
+    ComplexNumber c(3, 4);
+    ComplexNumber result = c + 2.5;
+    EXPECT_EQ(result.to_string(), "5.5 + 4i");
+}
+
+TEST(ComplexNumberTests, AdditionWithInt) {
+    ComplexNumber c(3, 4);
+    ComplexNumber result = c + 2;
+    EXPECT_EQ(result.to_string(), "5 + 4i");
+}
+
+
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();

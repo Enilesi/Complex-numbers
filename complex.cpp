@@ -111,6 +111,7 @@ public:
         result.imaginary_part = imaginary_part +  ComplexNumber(number).imaginary_part;
         return result;
     }
+    
      ComplexNumber operator*(const ComplexNumber& number)
     {
         ComplexNumber result;
