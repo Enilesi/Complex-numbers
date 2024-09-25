@@ -1,3 +1,4 @@
 Set-Location ./build &&
 cmake --build . &&
-ctest --verbose
+ctest --verbose &&
+Set-Location ../
